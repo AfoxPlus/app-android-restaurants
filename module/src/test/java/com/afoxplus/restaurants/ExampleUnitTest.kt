@@ -1,4 +1,4 @@
-package com.afoxplus.module
+package com.afoxplus.restaurants
 
 import org.junit.Test
 

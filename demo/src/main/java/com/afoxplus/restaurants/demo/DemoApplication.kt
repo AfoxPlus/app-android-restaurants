@@ -1,4 +1,4 @@
-package com.afoxplus.module.demo
+package com.afoxplus.restaurants.demo
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

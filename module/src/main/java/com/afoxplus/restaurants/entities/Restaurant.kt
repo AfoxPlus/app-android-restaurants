@@ -9,7 +9,7 @@ interface Restaurant : Parcelable {
     val description: String
     val urlImageLogo: String
     val registrationState: RegistrationState
-    val viewType: RestaurantViewType
+    var viewType: RestaurantViewType
     fun isNewRestaurant(): Boolean = registrationState is NewRegistrationState
-    fun getViewType(): Int = viewType.code
+    fun getItemViewType(): Int = viewType.code
 }

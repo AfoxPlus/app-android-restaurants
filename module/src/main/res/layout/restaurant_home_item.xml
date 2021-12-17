@@ -29,9 +29,9 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/restaurantImage"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:scaleType="center"
+                android:layout_width="130dp"
+                android:layout_height="140dp"
+                android:scaleType="fitXY"
                 app:layout_constraintBottom_toBottomOf="@+id/restaurantNewState"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

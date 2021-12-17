@@ -26,5 +26,5 @@ internal class RestaurantAdapter :
     override fun onBindViewHolder(holder: RestaurantItemViewHolder, position: Int) =
         holder.bind(getItem(position))
 
-    override fun getItemViewType(position: Int): Int = getItem(position).getViewType()
+    override fun getItemViewType(position: Int): Int = getItem(position).getItemViewType()
 }

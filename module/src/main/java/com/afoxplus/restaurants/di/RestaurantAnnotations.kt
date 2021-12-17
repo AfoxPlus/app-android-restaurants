@@ -25,3 +25,7 @@ annotation class RestaurantOkHttpClient
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class RestaurantBaseURL
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class RestaurantHomeViewType

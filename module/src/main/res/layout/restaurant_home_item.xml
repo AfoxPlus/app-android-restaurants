@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="restaurant"
+            type="com.afoxplus.restaurants.entities.Restaurant" />
+
+        <variable
+            name="onSelectedRestaurantHome"
+            type="com.afoxplus.restaurants.delivery.views.adapters.listeners.OnClickCardRestaurantListener" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:onClick="@{() -> onSelectedRestaurantHome.invoke(restaurant)}"
+        app:cardBackgroundColor="@color/light_04"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="2dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/restaurantImage"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:scaleType="center"
+                app:layout_constraintBottom_toBottomOf="@+id/restaurantNewState"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/restaurantTitle"
+                style="@style/Title_08"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:ellipsize="end"
+                android:text="@{restaurant.name}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/restaurantImage"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Rest. Doña Esther" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/restaurantDescription"
+                style="@style/Title_10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/uikit_light"
+                android:maxLines="3"
+                android:text="@{restaurant.description}"
+                app:layout_constraintBottom_toTopOf="@+id/restaurantNewState"
+                app:layout_constraintEnd_toEndOf="@id/restaurantTitle"
+                app:layout_constraintStart_toStartOf="@+id/restaurantTitle"
+                app:layout_constraintTop_toBottomOf="@+id/restaurantTitle"
+                tools:text="@tools:sample/lorem/random" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/restaurantNewState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/restaurant_shape_state_register"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/Title_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="14dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/uikit_extra_bold"
+                    android:text="@{restaurant.registrationState.state}"
+                    android:textColor="@color/light_01"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="NEW" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

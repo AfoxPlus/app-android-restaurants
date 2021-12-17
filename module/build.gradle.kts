@@ -69,11 +69,16 @@ dependencies {
     implementation(Deps.UI.materialDesign)
     implementation(Deps.UI.constraintLayout)
     implementation(Deps.UI.uikit)
+    implementation(Deps.UI.glide)
+    kapt(Deps.UI.glideCompiler)
 
     implementation(Deps.Arch.coroutinesCore)
     implementation(Deps.Arch.hiltAndroid)
     kapt(Deps.Arch.hiltCompiler)
     implementation(Deps.Arch.network)
+    api(Deps.Arch.retrofit2)
+    api(Deps.Arch.gson)
+    api(Deps.Arch.loggingInterceptor)
 
     testImplementation(Deps.Test.jUnit)
     androidTestImplementation(Deps.Test.androidJUnit)

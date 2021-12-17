@@ -12,5 +12,5 @@ internal data class RestaurantResponse(
     @SerializedName("description") override val description: String,
     @SerializedName("urlImageLogo") override val urlImageLogo: String,
     @SerializedName("registrationState") override val registrationState: RegistrationStateResponse,
-    override var viewType: RestaurantViewType
+    @SerializedName("itemViewType") override var itemViewType: Int
 ) : Restaurant

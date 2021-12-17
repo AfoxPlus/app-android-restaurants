@@ -1,6 +1,5 @@
 package com.afoxplus.restaurants.di
 
-import com.afoxplus.restaurants.entities.RestaurantViewType
 import com.afoxplus.restaurants.repositories.sources.network.RestaurantNetworkDataSource
 import com.afoxplus.restaurants.repositories.sources.network.api.RestaurantApiNetwork
 import com.afoxplus.restaurants.repositories.sources.network.service.RestaurantNetworkService
@@ -15,8 +14,7 @@ internal object RestaurantNetworkDataSourceModule {
 
     @Provides
     fun provideRestaurantNetworkDataSource(
-        restaurantApi: RestaurantApiNetwork,
-        @RestaurantHomeViewType homeViewType: RestaurantViewType
+        restaurantApi: RestaurantApiNetwork
     ): RestaurantNetworkDataSource =
-        RestaurantNetworkService(restaurantApi, homeViewType)
+        RestaurantNetworkService(restaurantApi)
 }

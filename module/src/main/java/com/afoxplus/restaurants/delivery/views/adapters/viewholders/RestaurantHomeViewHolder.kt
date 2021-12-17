@@ -2,6 +2,7 @@ package com.afoxplus.restaurants.delivery.views.adapters.viewholders
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.afoxplus.restaurants.databinding.RestaurantHomeItemBinding
 import com.afoxplus.restaurants.delivery.views.adapters.listeners.OnClickCardRestaurantListener
@@ -15,7 +16,11 @@ internal class RestaurantHomeViewHolder(
 ) :
     RestaurantItemViewHolder(binding) {
     override fun bind(restaurant: Restaurant) {
+        binding.restaurantNewState.visibility = View.GONE
         binding.restaurant = restaurant
+        if (restaurant.isNewRestaurant()) {
+            binding.restaurantNewState.visibility = View.VISIBLE
+        }
         binding.onSelectedRestaurantHome = listener
         Glide.with(context).load(restaurant.urlImageLogo)
             .into(binding.restaurantImage)

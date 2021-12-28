@@ -56,6 +56,7 @@ dependencies {
     implementation(Deps.Jetpack.activity)
     implementation(Deps.Jetpack.fragment)
 
+    implementation(Deps.UI.uikit)
     implementation(Deps.UI.materialDesign)
     implementation(Deps.UI.constraintLayout)
 

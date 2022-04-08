@@ -4,29 +4,27 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.afoxplus.restaurants.delivery.views.events.OnClickRestaurantHomeEvent
+import com.afoxplus.restaurants.delivery.flow.RestaurantBridge
 import com.afoxplus.restaurants.entities.Restaurant
-import com.afoxplus.uikit.bus.Event
-import com.afoxplus.uikit.bus.EventBusListener
+import com.afoxplus.uikit.di.UIKitMainDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-internal class MainViewModel @Inject constructor(private val eventBusListener: EventBusListener) :
-    ViewModel() {
+internal class MainViewModel @Inject constructor(
+    private val restaurantBridge: RestaurantBridge,
+    @UIKitMainDispatcher private val dispatcherMain: CoroutineDispatcher
+) : ViewModel() {
 
-    private val mOnClickRestaurantHome: MutableLiveData<Event<Restaurant>> by lazy { MutableLiveData<Event<Restaurant>>() }
-    val onClickRestaurantHome: LiveData<Event<Restaurant>> get() = mOnClickRestaurantHome
+    private val mOnClickRestaurantHome: MutableLiveData<Restaurant> by lazy { MutableLiveData<Restaurant>() }
+    val onClickRestaurantHome: LiveData<Restaurant> get() = mOnClickRestaurantHome
 
     init {
-        viewModelScope.launch(Dispatchers.Main) {
-            eventBusListener.subscribe().collectLatest { event ->
-                if (event is OnClickRestaurantHomeEvent) {
-                    mOnClickRestaurantHome.postValue(Event(event.restaurant))
-                }
+        viewModelScope.launch(dispatcherMain) {
+            restaurantBridge.fetchRestaurant().observeForever {
+                mOnClickRestaurantHome.postValue(it)
             }
         }
     }

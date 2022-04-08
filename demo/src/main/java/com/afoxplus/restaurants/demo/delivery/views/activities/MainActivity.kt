@@ -3,12 +3,12 @@ package com.afoxplus.restaurants.demo.delivery.views.activities
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
+import com.afoxplus.restaurants.delivery.flow.RestaurantBridge
 import com.afoxplus.restaurants.delivery.flow.RestaurantFlow
 import com.afoxplus.restaurants.demo.databinding.ActivityMainBinding
 import com.afoxplus.restaurants.demo.delivery.viewmodels.MainViewModel
 import com.afoxplus.uikit.activities.BaseActivity
 import com.afoxplus.uikit.adapters.ViewPagerAdapter
-import com.afoxplus.uikit.bus.EventObserver
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -21,6 +21,9 @@ class MainActivity : BaseActivity() {
 
     @Inject
     lateinit var restaurantFlow: RestaurantFlow
+
+    @Inject
+    lateinit var restaurantBridge: RestaurantBridge
 
     private lateinit var viewPagerAdapter: ViewPagerAdapter
 
@@ -40,8 +43,13 @@ class MainActivity : BaseActivity() {
     }
 
     override fun observerViewModel() {
-        viewModel.onClickRestaurantHome.observe(this, EventObserver { restaurant ->
-            Toast.makeText(this, "${restaurant.name} is Clicked", Toast.LENGTH_SHORT).show()
-        })
+        viewModel.onClickRestaurantHome.observe(this) { restaurant ->
+            Toast.makeText(this, "Toast 1: ${restaurant.name} is Clicked", Toast.LENGTH_SHORT)
+                .show()
+        }
+
+        restaurantBridge.fetchRestaurant().observe(this) { restaurant ->
+            Toast.makeText(this, "Toast 3: ${restaurant.name}", Toast.LENGTH_SHORT).show()
+        }
     }
 }

@@ -14,12 +14,16 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
+
     private lateinit var binding: ActivityMainBinding
+
+    private val viewModel: MainViewModel by viewModels()
 
     @Inject
     lateinit var restaurantFlow: RestaurantFlow
-    private val viewModel: MainViewModel by viewModels()
+
     private lateinit var viewPagerAdapter: ViewPagerAdapter
+
     override fun setMainView() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

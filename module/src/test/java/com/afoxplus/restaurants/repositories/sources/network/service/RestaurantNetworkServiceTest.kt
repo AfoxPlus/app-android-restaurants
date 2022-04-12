@@ -1,11 +1,9 @@
 package com.afoxplus.restaurants.repositories.sources.network.service
 
-import com.afoxplus.home.utils.TestCoroutineRule
-import com.afoxplus.network.response.BaseResponse
 import com.afoxplus.restaurants.repositories.sources.network.api.RestaurantApiNetwork
-import com.afoxplus.restaurants.repositories.sources.network.api.response.RegistrationStateResponse
-import com.afoxplus.restaurants.repositories.sources.network.api.response.RestaurantResponse
 import com.afoxplus.restaurants.repositories.sources.network.api.response.toListRestaurant
+import com.afoxplus.restaurants.utils.TestCoroutineRule
+import com.afoxplus.restaurants.utils.getBaseResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -34,30 +32,15 @@ class RestaurantNetworkServiceTest {
         sutService = RestaurantNetworkService(mockRestaurantApi)
     }
 
-    private fun getRestaurantResponse(): BaseResponse<List<RestaurantResponse>> {
-        val listRestaurantResponse = arrayListOf(
-            RestaurantResponse(
-                code = "321",
-                name = "Chilis",
-                description = "This is restaurant",
-                urlImageLogo = "",
-                registrationState = RegistrationStateResponse("951", ""),
-                itemViewType = 0
-            )
-        )
-        return BaseResponse(success = true, message = "", payload = listRestaurantResponse)
-    }
-
     @Test
-    fun invokeFetchHome() {
+    fun `Given a restaurant response When execute fetchHome Then validate flow it's ok`() {
         ruleTestCoroutine.runBlockingTest {
-            //Given
-            val restaurantResponse = getRestaurantResponse()
+            val restaurantResponse = getBaseResponse()
             val resultMapper = restaurantResponse.toListRestaurant()
             whenever(mockRestaurantApi.fetchHome()).doReturn(restaurantResponse)
-            //When
+
             val resultData = sutService.fetchHome()
-            //Then
+
             assertNotNull(mockRestaurantApi)
             assertNotNull(sutService)
             assertNotNull(resultData)
@@ -66,5 +49,4 @@ class RestaurantNetworkServiceTest {
             assertEquals(resultMapper, resultData)
         }
     }
-
 }

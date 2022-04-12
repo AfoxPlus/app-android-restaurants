@@ -13,15 +13,16 @@ interface RestaurantBridge {
 
 class RestaurantBridgeAction @Inject constructor() : RestaurantBridge {
 
-    private val restaurantMLD: MutableLiveData<Restaurant> by lazy { MutableLiveData<Restaurant>() }
-    @VisibleForTesting
-    val restaurantLD: LiveData<Restaurant> get() = restaurantMLD
+    private val restaurantMutable: MutableLiveData<Restaurant> by lazy { MutableLiveData<Restaurant>() }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    val restaurant: LiveData<Restaurant> get() = restaurantMutable
 
     override suspend fun saveRestaurant(restaurant: Restaurant) {
-        this.restaurantMLD.postValue(restaurant)
+        this.restaurantMutable.postValue(restaurant)
     }
 
     override fun fetchRestaurant(): LiveData<Restaurant> {
-        return restaurantLD
+        return restaurant
     }
 }

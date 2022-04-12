@@ -1,17 +1,16 @@
 package com.afoxplus.restaurants.delivery.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.afoxplus.home.utils.TestCoroutineRule
 import com.afoxplus.restaurants.delivery.flow.RestaurantBridge
-import com.afoxplus.restaurants.entities.RegistrationState
 import com.afoxplus.restaurants.entities.Restaurant
 import com.afoxplus.restaurants.usecases.actions.FetchRestaurantHome
-import com.hacybeyker.movieoh.getOrAwaitValue
+import com.afoxplus.restaurants.utils.TestCoroutineRule
+import com.afoxplus.restaurants.utils.getOrAwaitValue
+import com.afoxplus.restaurants.utils.getRestaurant
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -54,48 +53,44 @@ class RestaurantViewModelTest {
     }
 
     @Test
-    fun invokeFetchRestaurantHomeOK() {
+    fun `Given restaurant view model When executed fetchRestaurantHome Then validated that flow is ok`() {
         ruleCoroutineRule.runBlockingTest {
-            //Given
-            whenever(mockFetchRestaurant()).doReturn(emptyList())
-            //When
+            whenever(mockFetchRestaurant()).doReturn(arrayListOf(getRestaurant()))
+
             sutRestaurantVewModel.fetchRestaurantHome()
             val resultRestaurant = sutRestaurantVewModel.restaurantsHome.getOrAwaitValue()
-            //Then
-            Assert.assertTrue(true)
+
+            assertNotNull(sutRestaurantVewModel)
+            assertNotNull(resultRestaurant)
+            assertEquals(arrayListOf(getRestaurant()), resultRestaurant)
+            assertEquals(1, resultRestaurant.size)
         }
     }
 
     @Test
-    fun invokeFetchRestaurantHomeFail() {
+    fun `Given restaurant view model When executed fetchRestaurantHome Then validated that flow is not ok`() {
         ruleCoroutineRule.runBlockingTest {
-            //Given
             whenever(mockFetchRestaurant()).doAnswer { throw Exception() }
-            //When
+
             sutRestaurantVewModel.fetchRestaurantHome()
             val resultRestaurant = sutRestaurantVewModel.restaurantsHome.getOrAwaitValue()
-            //Then
-            assertNotNull(sutRestaurantVewModel.restaurantsHome)
-            assertEquals(emptyList<List<Restaurant>>(), resultRestaurant)
-            Assert.assertTrue(true)
 
+            assertNotNull(sutRestaurantVewModel)
+            assertNotNull(resultRestaurant)
+            assertEquals(emptyList<List<Restaurant>>(), resultRestaurant)
         }
     }
 
     @Test
-    fun testOnClickCardRestaurant() {
+    fun `Given restaurant view model When executed onClickRestaurant Then validated that flow is ok`() {
         ruleCoroutineRule.runBlockingTest {
-            //Given
-            val mockRestaurant: Restaurant = Restaurant(
-                "123", "Viky", "description", "",
-                RegistrationState("", ""), 0
-            )
+            val mockRestaurant: Restaurant = getRestaurant()
             whenever(mockRestaurantBridge.saveRestaurant(mockRestaurant)).doReturn(println("Guardado!!!"))
-            //When
+
             sutRestaurantVewModel.onClickCardRestaurant(mockRestaurant)
-            //Then
+
             delay(1500L)
-            verify(mockRestaurantBridge, times(1)).saveRestaurant(mockRestaurant)
+            verify(mockRestaurantBridge, times(numInvocations = 1)).saveRestaurant(mockRestaurant)
         }
     }
 }

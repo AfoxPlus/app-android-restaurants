@@ -1,4 +1,4 @@
-package com.afoxplus.home.utils
+package com.afoxplus.restaurants.utils
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

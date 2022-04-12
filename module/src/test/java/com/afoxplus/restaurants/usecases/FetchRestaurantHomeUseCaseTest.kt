@@ -1,8 +1,8 @@
 package com.afoxplus.restaurants.usecases
 
-import com.afoxplus.home.utils.TestCoroutineRule
 import com.afoxplus.restaurants.entities.Restaurant
 import com.afoxplus.restaurants.usecases.repositories.RestaurantRepository
+import com.afoxplus.restaurants.utils.TestCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -23,12 +23,6 @@ class FetchRestaurantHomeUseCaseTest {
 
     private val mockRestaurantRepository: RestaurantRepository = mock()
 
-    /*private val sutFetchRestaurantHomeUseCase: FetchRestaurantHomeUseCase by lazy {
-        FetchRestaurantHomeUseCase(
-            mockRestaurantRepository
-        )
-    }*/
-
     private lateinit var sutUseCase: FetchRestaurantHomeUseCase
 
     @Before
@@ -37,14 +31,13 @@ class FetchRestaurantHomeUseCaseTest {
     }
 
     @Test
-    fun executeInvoke() {
+    fun `Given a restaurant list When execute invoke Then validate flow it's ok`() {
         ruleTestCoroutine.runBlockingTest {
-            //Given
             val mockList: List<Restaurant> = mock()
             whenever(mockRestaurantRepository.fetchHome()).doReturn(mockList)
-            //When
+
             sutUseCase.invoke()
-            //Then
+
             assertNotNull(sutUseCase)
             assertNotNull(mockRestaurantRepository)
             verify(mockRestaurantRepository, times(numInvocations = 1)).fetchHome()

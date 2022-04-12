@@ -1,6 +1,6 @@
 package com.afoxplus.restaurants.repositories
 
-import com.afoxplus.home.utils.TestCoroutineRule
+import com.afoxplus.restaurants.utils.TestCoroutineRule
 import com.afoxplus.restaurants.entities.Restaurant
 import com.afoxplus.restaurants.repositories.sources.network.RestaurantNetworkDataSource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -31,14 +31,13 @@ class RestaurantRepositorySourceTest {
     }
 
     @Test
-    fun invokeFetchHome() {
+    fun `Given a restaurant list When execute fetchHome Then validate flow it's ok`() {
         ruleTestCoroutine.runBlockingTest {
-            //Given
             val mockList: List<Restaurant> = mock()
             whenever(mockDataSource.fetchHome()).doReturn(mockList)
-            //When
+
             sutRepositorySource.fetchHome()
-            //Then
+
             assertNotNull(mockDataSource)
             assertNotNull(sutRepositorySource)
             verify(mockDataSource, times(numInvocations = 1)).fetchHome()

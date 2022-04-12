@@ -9,6 +9,7 @@ import com.afoxplus.restaurants.demo.databinding.ActivityMainBinding
 import com.afoxplus.restaurants.demo.delivery.viewmodels.MainViewModel
 import com.afoxplus.uikit.activities.BaseActivity
 import com.afoxplus.uikit.adapters.ViewPagerAdapter
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -44,12 +45,12 @@ class MainActivity : BaseActivity() {
 
     override fun observerViewModel() {
         viewModel.onClickRestaurantHome.observe(this) { restaurant ->
-            Toast.makeText(this, "Toast 1: ${restaurant.name} is Clicked", Toast.LENGTH_SHORT)
+            Toast.makeText(this, "Toast 1: ${restaurant.name} is Clicked", Toast.LENGTH_LONG)
                 .show()
         }
 
         restaurantBridge.fetchRestaurant().observe(this) { restaurant ->
-            Toast.makeText(this, "Toast 3: ${restaurant.name}", Toast.LENGTH_SHORT).show()
+            Snackbar.make(binding.root, restaurant.name, Snackbar.LENGTH_LONG).show()
         }
     }
 }

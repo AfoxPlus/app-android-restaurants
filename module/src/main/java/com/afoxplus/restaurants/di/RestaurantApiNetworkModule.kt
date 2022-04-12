@@ -12,7 +12,7 @@ import retrofit2.Retrofit
 internal object RestaurantApiNetworkModule {
 
     @Provides
-    fun provideNetworkService(
-        @RestaurantRetrofit retrofit: Retrofit
-    ): RestaurantApiNetwork = retrofit.create(RestaurantApiNetwork::class.java)
+    fun provideNetworkService(@RestaurantRetrofit retrofit: Retrofit): RestaurantApiNetwork {
+        return retrofit.create(RestaurantApiNetwork::class.java)
+    }
 }

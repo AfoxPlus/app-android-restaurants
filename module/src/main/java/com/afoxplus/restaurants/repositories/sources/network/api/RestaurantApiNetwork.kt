@@ -2,7 +2,6 @@ package com.afoxplus.restaurants.repositories.sources.network.api
 
 import com.afoxplus.network.response.BaseResponse
 import com.afoxplus.restaurants.repositories.sources.network.api.response.RestaurantResponse
-import retrofit2.Response
 import retrofit2.http.GET
 
 internal interface RestaurantApiNetwork {
@@ -12,5 +11,5 @@ internal interface RestaurantApiNetwork {
     }
 
     @GET("$PATH_RESTAURANT/home")
-    suspend fun fetchHome(): Response<BaseResponse<List<RestaurantResponse>>>
+    suspend fun fetchHome(): BaseResponse<List<RestaurantResponse>>
 }

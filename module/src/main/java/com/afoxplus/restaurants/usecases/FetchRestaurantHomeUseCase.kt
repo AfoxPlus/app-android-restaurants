@@ -8,5 +8,9 @@ import javax.inject.Inject
 internal class FetchRestaurantHomeUseCase @Inject constructor(
     private val restaurantRepository: RestaurantRepository
 ) : FetchRestaurantHome {
-    override suspend fun invoke(): List<Restaurant> = restaurantRepository.fetchHome()
+
+    override suspend fun invoke(): List<Restaurant> {
+        return restaurantRepository.fetchHome()
+    }
+
 }

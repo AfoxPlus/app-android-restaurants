@@ -1,7 +1,6 @@
 package com.afoxplus.restaurants.entities
 
 import android.os.Parcelable
-import com.afoxplus.restaurants.entities.states.NewRegistrationState
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -10,7 +9,14 @@ data class Restaurant(
     val name: String,
     val description: String,
     val urlImageLogo: String,
-    val registrationState: RegistrationState
+    val registrationState: RegistrationState,
+    var itemViewType: Int
 ) : Parcelable {
-    fun isNewRestaurant(): Boolean = registrationState is NewRegistrationState
+
+    companion object {
+        const val HOME_VIEW_TYPE: Int = 0
+        const val NEW_STATE: String = "NEW"
+    }
+
+    fun isNewRestaurant(): Boolean = registrationState.code == NEW_STATE
 }

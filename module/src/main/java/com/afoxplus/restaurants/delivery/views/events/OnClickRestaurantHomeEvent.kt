@@ -1,9 +1,9 @@
 package com.afoxplus.restaurants.delivery.views.events
 
 import com.afoxplus.restaurants.entities.Restaurant
-import com.afoxplus.uikit.bus.EventBus
+import com.afoxplus.uikit.bus.UIKitEventBus
 
-interface OnClickRestaurantHomeEvent : EventBus {
+interface OnClickRestaurantHomeEvent : UIKitEventBus {
     val restaurant: Restaurant
 
     companion object {

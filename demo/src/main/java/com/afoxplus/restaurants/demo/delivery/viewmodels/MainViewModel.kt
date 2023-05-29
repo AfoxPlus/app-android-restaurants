@@ -6,23 +6,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.afoxplus.restaurants.delivery.flow.RestaurantBridge
 import com.afoxplus.restaurants.entities.Restaurant
-import com.afoxplus.uikit.di.UIKitMainDispatcher
+import com.afoxplus.uikit.di.UIKitCoroutineDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 internal class MainViewModel @Inject constructor(
     private val restaurantBridge: RestaurantBridge,
-    @UIKitMainDispatcher private val dispatcherMain: CoroutineDispatcher
+    private val coroutines: UIKitCoroutineDispatcher
 ) : ViewModel() {
 
     private val mOnClickRestaurantHome: MutableLiveData<Restaurant> by lazy { MutableLiveData<Restaurant>() }
     val onClickRestaurantHome: LiveData<Restaurant> get() = mOnClickRestaurantHome
 
     init {
-        viewModelScope.launch(dispatcherMain) {
+        viewModelScope.launch(coroutines.getMainDispatcher()) {
             restaurantBridge.fetchRestaurant().observeForever {
                 mOnClickRestaurantHome.postValue(it)
             }

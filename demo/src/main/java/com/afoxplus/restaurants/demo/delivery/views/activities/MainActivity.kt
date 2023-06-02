@@ -7,14 +7,14 @@ import com.afoxplus.restaurants.delivery.flow.RestaurantBridge
 import com.afoxplus.restaurants.delivery.flow.RestaurantFlow
 import com.afoxplus.restaurants.demo.databinding.ActivityMainBinding
 import com.afoxplus.restaurants.demo.delivery.viewmodels.MainViewModel
-import com.afoxplus.uikit.activities.BaseActivity
-import com.afoxplus.uikit.adapters.ViewPagerAdapter
+import com.afoxplus.uikit.activities.UIKitBaseActivity
+import com.afoxplus.uikit.adapters.UIKitViewPagerAdapter
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity() {
+class MainActivity : UIKitBaseActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -26,7 +26,7 @@ class MainActivity : BaseActivity() {
     @Inject
     lateinit var restaurantBridge: RestaurantBridge
 
-    private lateinit var viewPagerAdapter: ViewPagerAdapter
+    private lateinit var viewPagerAdapter: UIKitViewPagerAdapter
 
     override fun setMainView() {
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -34,7 +34,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setUpView() {
-        viewPagerAdapter = ViewPagerAdapter(
+        viewPagerAdapter = UIKitViewPagerAdapter(
             supportFragmentManager,
             lifecycle,
             listOf(restaurantFlow.getRestaurantHomeFragment())

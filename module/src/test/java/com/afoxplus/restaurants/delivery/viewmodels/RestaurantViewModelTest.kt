@@ -5,10 +5,10 @@ import com.afoxplus.restaurants.delivery.flow.RestaurantBridge
 import com.afoxplus.restaurants.entities.Restaurant
 import com.afoxplus.restaurants.usecases.actions.FetchRestaurantHome
 import com.afoxplus.restaurants.utils.TestCoroutineRule
+import com.afoxplus.restaurants.utils.UIKitCoroutinesDispatcherTest
 import com.afoxplus.restaurants.utils.getOrAwaitValue
 import com.afoxplus.restaurants.utils.getRestaurant
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
+import com.afoxplus.uikit.di.UIKitCoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import org.junit.Assert.assertEquals
@@ -36,19 +36,17 @@ class RestaurantViewModelTest {
 
     private val mockRestaurantBridge: RestaurantBridge = mock()
 
-    private val mockDispatcherIO: CoroutineDispatcher by lazy { Dispatchers.IO }
-
-    private val mockDispatcherMain: CoroutineDispatcher by lazy { Dispatchers.Main }
+    private lateinit var coroutineDispatcher: UIKitCoroutineDispatcher
 
     private lateinit var sutRestaurantVewModel: RestaurantViewModel
 
     @Before
     fun setup() {
+        coroutineDispatcher = UIKitCoroutinesDispatcherTest()
         sutRestaurantVewModel = RestaurantViewModel(
             fetchRestaurant = mockFetchRestaurant,
             restaurantBridge = mockRestaurantBridge,
-            dispatcherIO = mockDispatcherIO,
-            dispatcherMain = mockDispatcherMain
+            coroutineDispatcher = coroutineDispatcher
         )
     }
 

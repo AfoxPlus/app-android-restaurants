@@ -101,6 +101,7 @@ dependencies {
 
     implementation(Deps.UI.materialDesign)
     implementation(Deps.UI.constraintLayout)
+    implementation(Deps.Arch.network)
 
     implementation(Deps.Arch.coroutinesCore)
 

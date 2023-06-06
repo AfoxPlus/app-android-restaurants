@@ -10,7 +10,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class RestaurantBridgeModule {
+internal abstract class RestaurantBridgeModule {
 
     @Singleton
     @Binds

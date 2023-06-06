@@ -83,12 +83,12 @@ class RestaurantViewModelTest {
     fun `Given restaurant view model When executed onClickRestaurant Then validated that flow is ok`() {
         ruleCoroutineRule.runBlockingTest {
             val mockRestaurant: Restaurant = getRestaurant()
-            whenever(mockRestaurantBridge.saveRestaurant(mockRestaurant)).doReturn(println("Guardado!!!"))
+            whenever(mockRestaurantBridge.emitRestaurant(mockRestaurant)).doReturn(println("Guardado!!!"))
 
             sutRestaurantVewModel.onClickCardRestaurant(mockRestaurant)
 
             delay(1500L)
-            verify(mockRestaurantBridge, times(numInvocations = 1)).saveRestaurant(mockRestaurant)
+            verify(mockRestaurantBridge, times(numInvocations = 1)).emitRestaurant(mockRestaurant)
         }
     }
 }

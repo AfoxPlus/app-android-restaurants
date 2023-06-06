@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.afoxplus.restaurants.delivery.flow.RestaurantBridge
 import com.afoxplus.restaurants.entities.Restaurant
 import com.afoxplus.restaurants.usecases.actions.FetchRestaurantHome
+import com.afoxplus.restaurants.usecases.actions.SetRestaurantToScope
 import com.afoxplus.uikit.di.UIKitCoroutineDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,6 +17,7 @@ import javax.inject.Inject
 internal class RestaurantViewModel @Inject constructor(
     private val fetchRestaurant: FetchRestaurantHome,
     private val restaurantBridge: RestaurantBridge,
+    private val setRestaurantToScope: SetRestaurantToScope,
     private val coroutineDispatcher: UIKitCoroutineDispatcher
 ) : ViewModel() {
 
@@ -35,6 +37,7 @@ internal class RestaurantViewModel @Inject constructor(
 
     fun onClickCardRestaurant(restaurant: Restaurant) {
         viewModelScope.launch(coroutineDispatcher.getMainDispatcher()) {
+            setRestaurantToScope(restaurant)
             restaurantBridge.saveRestaurant(restaurant)
         }
     }

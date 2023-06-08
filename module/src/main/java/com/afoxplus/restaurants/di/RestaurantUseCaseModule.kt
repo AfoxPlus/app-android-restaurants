@@ -1,11 +1,11 @@
 package com.afoxplus.restaurants.di
 
 import com.afoxplus.restaurants.usecases.FetchRestaurantHomeUseCase
-import com.afoxplus.restaurants.usecases.GetRestaurantByCodeUseCase
-import com.afoxplus.restaurants.usecases.SetRestaurantToScopeUseCase
+import com.afoxplus.restaurants.usecases.FindAndSetToContextRestaurantUseCase
+import com.afoxplus.restaurants.usecases.SetToContextRestaurantUseCase
 import com.afoxplus.restaurants.usecases.actions.FetchRestaurantHome
-import com.afoxplus.restaurants.usecases.actions.GetRestaurantByCode
-import com.afoxplus.restaurants.usecases.actions.SetRestaurantToScope
+import com.afoxplus.restaurants.usecases.actions.FindAndSetToContextRestaurant
+import com.afoxplus.restaurants.usecases.actions.SetToContextRestaurant
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -18,8 +18,8 @@ internal interface RestaurantUseCaseModule {
     fun bindsFetchRestaurantHomeUseCase(fetchRestaurantHomeUseCase: FetchRestaurantHomeUseCase): FetchRestaurantHome
 
     @Binds
-    fun bindGetRestaurantByCodeUseCase(getRestaurantByCodeUseCase: GetRestaurantByCodeUseCase): GetRestaurantByCode
+    fun bindGetRestaurantByCodeUseCase(findAndSetToScopeRestaurantUseCase: FindAndSetToContextRestaurantUseCase): FindAndSetToContextRestaurant
 
     @Binds
-    fun bindSetRestaurantToScope(setRestaurantToScopeUseCase: SetRestaurantToScopeUseCase): SetRestaurantToScope
+    fun bindSetRestaurantToScope(setRestaurantToScopeUseCase: SetToContextRestaurantUseCase): SetToContextRestaurant
 }

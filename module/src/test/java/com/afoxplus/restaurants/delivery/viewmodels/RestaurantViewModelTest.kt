@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.afoxplus.restaurants.delivery.flow.RestaurantBridge
 import com.afoxplus.restaurants.entities.Restaurant
 import com.afoxplus.restaurants.usecases.actions.FetchRestaurantHome
-import com.afoxplus.restaurants.usecases.actions.SetRestaurantToScope
+import com.afoxplus.restaurants.usecases.actions.SetToContextRestaurant
 import com.afoxplus.restaurants.utils.TestCoroutineRule
 import com.afoxplus.restaurants.utils.UIKitCoroutinesDispatcherTest
 import com.afoxplus.restaurants.utils.getOrAwaitValue
@@ -37,7 +37,7 @@ class RestaurantViewModelTest {
 
     private val mockRestaurantBridge: RestaurantBridge = mock()
 
-    private val mockSetRestaurantToScope: SetRestaurantToScope = mock()
+    private val mockSetToContextRestaurant: SetToContextRestaurant = mock()
 
     private lateinit var coroutineDispatcher: UIKitCoroutineDispatcher
 
@@ -49,7 +49,7 @@ class RestaurantViewModelTest {
         sutRestaurantVewModel = RestaurantViewModel(
             fetchRestaurant = mockFetchRestaurant,
             restaurantBridge = mockRestaurantBridge,
-            setRestaurantToScope =mockSetRestaurantToScope,
+            setToContextRestaurant =mockSetToContextRestaurant,
             coroutineDispatcher = coroutineDispatcher
         )
     }

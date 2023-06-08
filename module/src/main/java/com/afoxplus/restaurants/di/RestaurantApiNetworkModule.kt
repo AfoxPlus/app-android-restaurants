@@ -1,5 +1,6 @@
 package com.afoxplus.restaurants.di
 
+import com.afoxplus.network.api.RetrofitGenerator
 import com.afoxplus.restaurants.repositories.sources.network.api.RestaurantApiNetwork
 import dagger.Module
 import dagger.Provides
@@ -12,7 +13,7 @@ import retrofit2.Retrofit
 internal object RestaurantApiNetworkModule {
 
     @Provides
-    fun provideNetworkService(@RestaurantRetrofit retrofit: Retrofit): RestaurantApiNetwork {
-        return retrofit.create(RestaurantApiNetwork::class.java)
+    fun provideNetworkService(retrofitGenerator: RetrofitGenerator): RestaurantApiNetwork {
+        return retrofitGenerator.createRetrofit(RestaurantApiNetwork::class.java)
     }
 }

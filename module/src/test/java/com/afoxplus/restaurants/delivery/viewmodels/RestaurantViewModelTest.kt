@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.afoxplus.restaurants.delivery.flow.RestaurantBridge
 import com.afoxplus.restaurants.entities.Restaurant
 import com.afoxplus.restaurants.usecases.actions.FetchRestaurantHome
+import com.afoxplus.restaurants.usecases.actions.SetRestaurantToScope
 import com.afoxplus.restaurants.utils.TestCoroutineRule
 import com.afoxplus.restaurants.utils.UIKitCoroutinesDispatcherTest
 import com.afoxplus.restaurants.utils.getOrAwaitValue
@@ -36,6 +37,8 @@ class RestaurantViewModelTest {
 
     private val mockRestaurantBridge: RestaurantBridge = mock()
 
+    private val mockSetRestaurantToScope: SetRestaurantToScope = mock()
+
     private lateinit var coroutineDispatcher: UIKitCoroutineDispatcher
 
     private lateinit var sutRestaurantVewModel: RestaurantViewModel
@@ -46,6 +49,7 @@ class RestaurantViewModelTest {
         sutRestaurantVewModel = RestaurantViewModel(
             fetchRestaurant = mockFetchRestaurant,
             restaurantBridge = mockRestaurantBridge,
+            setRestaurantToScope =mockSetRestaurantToScope,
             coroutineDispatcher = coroutineDispatcher
         )
     }
@@ -83,12 +87,12 @@ class RestaurantViewModelTest {
     fun `Given restaurant view model When executed onClickRestaurant Then validated that flow is ok`() {
         ruleCoroutineRule.runBlockingTest {
             val mockRestaurant: Restaurant = getRestaurant()
-            whenever(mockRestaurantBridge.emitRestaurant(mockRestaurant)).doReturn(println("Guardado!!!"))
+            whenever(mockRestaurantBridge.saveRestaurant(mockRestaurant)).doReturn(println("Guardado!!!"))
 
             sutRestaurantVewModel.onClickCardRestaurant(mockRestaurant)
 
             delay(1500L)
-            verify(mockRestaurantBridge, times(numInvocations = 1)).emitRestaurant(mockRestaurant)
+            verify(mockRestaurantBridge, times(numInvocations = 1)).saveRestaurant(mockRestaurant)
         }
     }
 }

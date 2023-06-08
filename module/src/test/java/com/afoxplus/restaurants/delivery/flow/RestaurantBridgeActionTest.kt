@@ -28,9 +28,9 @@ class RestaurantBridgeActionTest {
         ruleTestCoroutineRule.runBlockingTest {
             val restaurantData: Restaurant = getRestaurant()
 
-            sutRestaurantBridgeAction.emitRestaurant(restaurant = restaurantData)
+            sutRestaurantBridgeAction.saveRestaurant(restaurant = restaurantData)
             val resultRestaurant = sutRestaurantBridgeAction.restaurant.getOrAwaitValue()
-            sutRestaurantBridgeAction.subscribeRestaurant()
+            sutRestaurantBridgeAction.fetchRestaurant()
 
             assertNotNull(sutRestaurantBridgeAction)
             assertNotNull(resultRestaurant)

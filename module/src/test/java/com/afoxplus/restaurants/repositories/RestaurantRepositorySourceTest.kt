@@ -2,6 +2,7 @@ package com.afoxplus.restaurants.repositories
 
 import com.afoxplus.restaurants.utils.TestCoroutineRule
 import com.afoxplus.restaurants.entities.Restaurant
+import com.afoxplus.restaurants.repositories.sources.local.RestaurantLocalDataSource
 import com.afoxplus.restaurants.repositories.sources.network.RestaurantNetworkDataSource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.assertEquals
@@ -22,12 +23,13 @@ class RestaurantRepositorySourceTest {
     val ruleTestCoroutine = TestCoroutineRule()
 
     private val mockDataSource: RestaurantNetworkDataSource = mock()
+    private val mockLocalDataSource: RestaurantLocalDataSource = mock()
 
     private lateinit var sutRepositorySource: RestaurantRepositorySource
 
     @Before
     fun setup() {
-        sutRepositorySource = RestaurantRepositorySource(mockDataSource)
+        sutRepositorySource = RestaurantRepositorySource(mockDataSource, mockLocalDataSource)
     }
 
     @Test

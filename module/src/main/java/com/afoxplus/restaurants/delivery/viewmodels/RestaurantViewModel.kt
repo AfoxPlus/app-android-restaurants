@@ -4,10 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.afoxplus.restaurants.delivery.flow.RestaurantBridge
+import com.afoxplus.restaurants.delivery.views.events.OnClickDeliveryEvent
+import com.afoxplus.restaurants.delivery.views.events.OnClickRestaurantHomeEvent
 import com.afoxplus.restaurants.entities.Restaurant
 import com.afoxplus.restaurants.usecases.actions.FetchRestaurantHome
 import com.afoxplus.restaurants.usecases.actions.SetToContextRestaurant
+import com.afoxplus.uikit.bus.UIKitEventBusWrapper
 import com.afoxplus.uikit.di.UIKitCoroutineDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,8 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 internal class RestaurantViewModel @Inject constructor(
     private val fetchRestaurant: FetchRestaurantHome,
-    private val restaurantBridge: RestaurantBridge,
     private val setToContextRestaurant: SetToContextRestaurant,
+    private val eventWrapper: UIKitEventBusWrapper,
     private val coroutineDispatcher: UIKitCoroutineDispatcher
 ) : ViewModel() {
 
@@ -38,7 +40,13 @@ internal class RestaurantViewModel @Inject constructor(
     fun onClickCardRestaurant(restaurant: Restaurant) {
         viewModelScope.launch(coroutineDispatcher.getMainDispatcher()) {
             setToContextRestaurant(restaurant)
-            restaurantBridge.saveRestaurant(restaurant)
+            eventWrapper.send(OnClickRestaurantHomeEvent.build(restaurant))
         }
     }
+
+    fun onClickDelivery(restaurant: Restaurant) =
+        viewModelScope.launch(coroutineDispatcher.getMainDispatcher()) {
+            setToContextRestaurant(restaurant)
+            eventWrapper.send(OnClickDeliveryEvent.build(restaurant))
+        }
 }

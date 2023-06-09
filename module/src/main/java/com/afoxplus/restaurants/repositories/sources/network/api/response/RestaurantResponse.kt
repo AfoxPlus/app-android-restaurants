@@ -10,6 +10,7 @@ data class RestaurantResponse(
     @SerializedName("name") val name: String,
     @SerializedName("description") val description: String,
     @SerializedName("urlImageLogo") val urlImageLogo: String,
+    @SerializedName("ownDelivery") val ownDelivery: Boolean,
     @SerializedName("registrationState") var registrationState: RegistrationStateResponse,
     @SerializedName("itemViewType") var itemViewType: Int
 )
@@ -24,6 +25,7 @@ fun RestaurantResponse.toRestaurant(): Restaurant {
         name = name,
         description = description,
         urlImageLogo = urlImageLogo,
+        ownDelivery = ownDelivery,
         registrationState = registrationState.toRegistrationState(),
         itemViewType = HOME_VIEW_TYPE
     )

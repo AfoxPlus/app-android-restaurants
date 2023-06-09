@@ -12,6 +12,10 @@
         <variable
             name="onSelectedRestaurantHome"
             type="com.afoxplus.restaurants.delivery.views.adapters.listeners.OnClickCardRestaurantListener" />
+
+        <variable
+            name="onClickDelivery"
+            type="com.afoxplus.restaurants.delivery.views.adapters.listeners.OnClickDeliveryListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -21,7 +25,9 @@
         android:onClick="@{() -> onSelectedRestaurantHome.invoke(restaurant)}"
         app:cardBackgroundColor="@color/light_04"
         app:cardCornerRadius="12dp"
-        app:cardElevation="2dp">
+        app:cardElevation="2dp"
+        app:strokeColor="@color/light_03"
+        app:strokeWidth="@dimen/borderWidth1">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -32,7 +38,7 @@
                 android:layout_width="130dp"
                 android:layout_height="140dp"
                 android:scaleType="fitXY"
-                app:layout_constraintBottom_toBottomOf="@+id/restaurantNewState"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
@@ -62,38 +68,29 @@
                 android:fontFamily="@font/uikit_light"
                 android:maxLines="3"
                 android:text="@{restaurant.description}"
-                app:layout_constraintBottom_toTopOf="@+id/restaurantNewState"
                 app:layout_constraintEnd_toEndOf="@id/restaurantTitle"
                 app:layout_constraintStart_toStartOf="@+id/restaurantTitle"
                 app:layout_constraintTop_toBottomOf="@+id/restaurantTitle"
                 tools:text="@tools:sample/lorem/random" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/restaurantNewState"
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDelivery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/restaurant_shape_state_register"
+                android:layout_marginTop="@dimen/dp6"
+                android:layout_marginEnd="@dimen/dp12"
+                android:layout_marginBottom="@dimen/dp8"
+                android:backgroundTint="@color/red_01"
+                android:onClick="@{() -> onClickDelivery.invoke(restaurant)}"
+                android:text="@string/order_button_delivery"
+                android:textAllCaps="false"
+                android:textAppearance="@style/UIKit.TextAppearance.Button"
+                android:textColor="@color/light_01"
+                app:cornerRadius="@dimen/dp4"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    style="@style/Title_10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="14dp"
-                    android:layout_marginBottom="8dp"
-                    android:fontFamily="@font/uikit_extra_bold"
-                    android:text="@{restaurant.registrationState.state}"
-                    android:textColor="@color/light_01"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="NEW" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/restaurantDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

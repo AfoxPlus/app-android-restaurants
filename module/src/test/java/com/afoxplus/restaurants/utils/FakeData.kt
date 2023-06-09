@@ -20,6 +20,7 @@ fun getRestaurantResponse(): RestaurantResponse {
         name = "Chilis",
         description = "This is restaurant",
         urlImageLogo = "https://www.tulogo.com",
+        ownDelivery = false,
         registrationState = RegistrationStateResponse(code = "123", state = ""),
         itemViewType = 0
     )
@@ -31,6 +32,7 @@ fun getRestaurant(): Restaurant {
         name = "Chilis",
         description = "This is restaurant",
         urlImageLogo = "https://www.tulogo.com",
+        ownDelivery = true,
         RegistrationState(code = "123", state = ""),
         itemViewType = 0
     )

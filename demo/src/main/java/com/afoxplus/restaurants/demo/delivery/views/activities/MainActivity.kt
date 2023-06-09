@@ -46,20 +46,15 @@ class MainActivity : UIKitBaseActivity() {
     }
 
     override fun observerViewModel() {
-        viewModel.onClickRestaurantHome.observe(this) { restaurant ->
-            Toast.makeText(this, "Toast 1: ${restaurant.name} is Clicked", Toast.LENGTH_LONG)
-                .show()
-        }
-
         restaurantBridge.fetchRestaurant().observe(this) { restaurant ->
             Snackbar.make(binding.root, restaurant.name, Snackbar.LENGTH_LONG).show()
         }
 
         lifecycleScope.launchWhenCreated {
-            viewModel.onClickDeliveryEvent.collectLatest { event ->
+            viewModel.onEvents.collectLatest { event ->
                 Toast.makeText(
                     this@MainActivity,
-                    "Delivery: ${event.restaurant.name} is Clicked",
+                    "Event: $event is Clicked",
                     Toast.LENGTH_LONG
                 )
                     .show()

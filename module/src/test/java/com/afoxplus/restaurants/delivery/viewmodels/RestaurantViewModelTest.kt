@@ -1,7 +1,6 @@
 package com.afoxplus.restaurants.delivery.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.afoxplus.restaurants.delivery.flow.RestaurantBridge
 import com.afoxplus.restaurants.entities.Restaurant
 import com.afoxplus.restaurants.usecases.actions.FetchRestaurantHome
 import com.afoxplus.restaurants.usecases.actions.SetToContextRestaurant
@@ -12,7 +11,6 @@ import com.afoxplus.restaurants.utils.getRestaurant
 import com.afoxplus.uikit.bus.UIKitEventBusWrapper
 import com.afoxplus.uikit.di.UIKitCoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -21,8 +19,6 @@ import org.junit.Test
 import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
-import org.mockito.kotlin.times
-import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
@@ -35,8 +31,6 @@ class RestaurantViewModelTest {
     val ruleCoroutineRule = TestCoroutineRule()
 
     private val mockFetchRestaurant: FetchRestaurantHome = mock()
-
-    private val mockRestaurantBridge: RestaurantBridge = mock()
 
     private val mockSetToContextRestaurant: SetToContextRestaurant = mock()
 
@@ -52,7 +46,6 @@ class RestaurantViewModelTest {
         coroutineDispatcher = UIKitCoroutinesDispatcherTest()
         sutRestaurantVewModel = RestaurantViewModel(
             fetchRestaurant = mockFetchRestaurant,
-            restaurantBridge = mockRestaurantBridge,
             setToContextRestaurant = mockSetToContextRestaurant,
             eventWrapper = uikitEventBusWrapper,
             coroutineDispatcher = coroutineDispatcher
@@ -85,19 +78,6 @@ class RestaurantViewModelTest {
             assertNotNull(sutRestaurantVewModel)
             assertNotNull(resultRestaurant)
             assertEquals(emptyList<List<Restaurant>>(), resultRestaurant)
-        }
-    }
-
-    @Test
-    fun `Given restaurant view model When executed onClickRestaurant Then validated that flow is ok`() {
-        ruleCoroutineRule.runBlockingTest {
-            val mockRestaurant: Restaurant = getRestaurant()
-            whenever(mockRestaurantBridge.saveRestaurant(mockRestaurant)).doReturn(println("Guardado!!!"))
-
-            sutRestaurantVewModel.onClickCardRestaurant(mockRestaurant)
-
-            delay(1500L)
-            verify(mockRestaurantBridge, times(numInvocations = 1)).saveRestaurant(mockRestaurant)
         }
     }
 }

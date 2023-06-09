@@ -9,6 +9,7 @@ data class Restaurant(
     val name: String,
     val description: String,
     val urlImageLogo: String,
+    val ownDelivery: Boolean,
     val registrationState: RegistrationState,
     var itemViewType: Int
 ) : Parcelable {

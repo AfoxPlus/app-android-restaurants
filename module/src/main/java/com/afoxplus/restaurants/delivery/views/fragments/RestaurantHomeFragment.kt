@@ -24,6 +24,7 @@ internal class RestaurantHomeFragment : UIKitBaseFragment() {
     override fun setUpView() {
         binding.adapter = adapter
         adapter.setOnClickCardRestaurantListener(::onClickCardRestaurant)
+        adapter.setOnClickDeliveryListener(::onClickDelivery)
         viewModel.fetchRestaurantHome()
     }
 
@@ -35,5 +36,9 @@ internal class RestaurantHomeFragment : UIKitBaseFragment() {
 
     private fun onClickCardRestaurant(restaurant: Restaurant) {
         viewModel.onClickCardRestaurant(restaurant)
+    }
+
+    private fun onClickDelivery(restaurant: Restaurant) {
+        viewModel.onClickDelivery(restaurant)
     }
 }

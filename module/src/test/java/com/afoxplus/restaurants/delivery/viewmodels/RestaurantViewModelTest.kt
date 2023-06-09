@@ -9,6 +9,7 @@ import com.afoxplus.restaurants.utils.TestCoroutineRule
 import com.afoxplus.restaurants.utils.UIKitCoroutinesDispatcherTest
 import com.afoxplus.restaurants.utils.getOrAwaitValue
 import com.afoxplus.restaurants.utils.getRestaurant
+import com.afoxplus.uikit.bus.UIKitEventBusWrapper
 import com.afoxplus.uikit.di.UIKitCoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -39,7 +40,10 @@ class RestaurantViewModelTest {
 
     private val mockSetToContextRestaurant: SetToContextRestaurant = mock()
 
+    private val uikitEventBusWrapper: UIKitEventBusWrapper = mock()
+
     private lateinit var coroutineDispatcher: UIKitCoroutineDispatcher
+
 
     private lateinit var sutRestaurantVewModel: RestaurantViewModel
 
@@ -49,7 +53,8 @@ class RestaurantViewModelTest {
         sutRestaurantVewModel = RestaurantViewModel(
             fetchRestaurant = mockFetchRestaurant,
             restaurantBridge = mockRestaurantBridge,
-            setToContextRestaurant =mockSetToContextRestaurant,
+            setToContextRestaurant = mockSetToContextRestaurant,
+            eventWrapper = uikitEventBusWrapper,
             coroutineDispatcher = coroutineDispatcher
         )
     }

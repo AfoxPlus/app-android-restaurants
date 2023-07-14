@@ -8,9 +8,9 @@ import com.afoxplus.restaurants.databinding.RestaurantHomeFragmentBinding
 import com.afoxplus.restaurants.delivery.viewmodels.RestaurantViewModel
 import com.afoxplus.restaurants.delivery.views.adapters.RestaurantAdapter
 import com.afoxplus.restaurants.entities.Restaurant
-import com.afoxplus.uikit.fragments.BaseFragment
+import com.afoxplus.uikit.fragments.UIKitBaseFragment
 
-internal class RestaurantHomeFragment : BaseFragment() {
+internal class RestaurantHomeFragment : UIKitBaseFragment() {
     private lateinit var binding: RestaurantHomeFragmentBinding
     private val viewModel: RestaurantViewModel by activityViewModels()
     private val adapter: RestaurantAdapter by lazy { RestaurantAdapter() }
@@ -24,6 +24,7 @@ internal class RestaurantHomeFragment : BaseFragment() {
     override fun setUpView() {
         binding.adapter = adapter
         adapter.setOnClickCardRestaurantListener(::onClickCardRestaurant)
+        adapter.setOnClickDeliveryListener(::onClickDelivery)
         viewModel.fetchRestaurantHome()
     }
 
@@ -35,5 +36,9 @@ internal class RestaurantHomeFragment : BaseFragment() {
 
     private fun onClickCardRestaurant(restaurant: Restaurant) {
         viewModel.onClickCardRestaurant(restaurant)
+    }
+
+    private fun onClickDelivery(restaurant: Restaurant) {
+        viewModel.onClickDelivery(restaurant)
     }
 }

@@ -11,7 +11,7 @@ interface RestaurantBridge {
     fun fetchRestaurant(): LiveData<Restaurant>
 }
 
-class RestaurantBridgeAction @Inject constructor() : RestaurantBridge {
+internal class RestaurantBridgeAction @Inject constructor() : RestaurantBridge {
 
     private val restaurantMutable: MutableLiveData<Restaurant> by lazy { MutableLiveData<Restaurant>() }
 

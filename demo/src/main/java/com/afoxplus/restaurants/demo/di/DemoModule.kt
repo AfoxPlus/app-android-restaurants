@@ -1,7 +1,7 @@
 package com.afoxplus.restaurants.demo.di
 
-import com.afoxplus.network.global.AppProperties
-import com.afoxplus.restaurants.demo.global.AppPropertiesDemo
+import com.afoxplus.module.delivery.flow.StartDemoFlow
+import com.afoxplus.restaurants.demo.global.RestaurantStartDemoFlow
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -12,5 +12,5 @@ import dagger.hilt.components.SingletonComponent
 interface DemoModule {
 
     @Binds
-    fun bindAppProperties(demo: AppPropertiesDemo): AppProperties
+    fun bindStartDemoFlow(demo: RestaurantStartDemoFlow): StartDemoFlow
 }

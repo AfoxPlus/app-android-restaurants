@@ -108,12 +108,18 @@ dependencies {
     implementation(Deps.Arch.hiltAndroid)
     kapt(Deps.Arch.hiltCompiler)
 
-    testImplementation(Deps.Test.jUnit)
-    androidTestImplementation(Deps.Test.androidJUnit)
-    androidTestImplementation(Deps.Test.espresso)
+    // Chucker
+    debugImplementation(Deps.Arch.chucker)
+    "stagingImplementation"(Deps.Arch.chucker)
+    releaseImplementation(Deps.Arch.chuckerNoOp)
 
     //Business Dependencies
     implementation(Deps.UI.uikit)
+    implementation(Deps.Arch.demo_config)
+
+    testImplementation(Deps.Test.jUnit)
+    androidTestImplementation(Deps.Test.androidJUnit)
+    androidTestImplementation(Deps.Test.espresso)
 
     LocalModules.setupBuildGradle(this, rootProject, "restaurants")
     implementation(project(mapOf("path" to ":module")))

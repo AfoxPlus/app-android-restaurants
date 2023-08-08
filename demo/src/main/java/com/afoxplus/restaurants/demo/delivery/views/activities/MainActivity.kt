@@ -12,7 +12,6 @@ import com.afoxplus.uikit.activities.UIKitBaseActivity
 import com.afoxplus.uikit.adapters.UIKitViewPagerAdapter
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -51,7 +50,7 @@ class MainActivity : UIKitBaseActivity() {
         }
 
         lifecycleScope.launchWhenCreated {
-            viewModel.onEvents.collectLatest { event ->
+            viewModel.eventBusListener.collect { event ->
                 Toast.makeText(
                     this@MainActivity,
                     "Event: $event is Clicked",

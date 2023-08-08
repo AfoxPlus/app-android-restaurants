@@ -47,7 +47,7 @@ class RestaurantViewModelTest {
         sutRestaurantVewModel = RestaurantViewModel(
             fetchRestaurant = mockFetchRestaurant,
             setToContextRestaurant = mockSetToContextRestaurant,
-            eventWrapper = uikitEventBusWrapper,
+            eventBusWrapper = uikitEventBusWrapper,
             coroutineDispatcher = coroutineDispatcher
         )
     }

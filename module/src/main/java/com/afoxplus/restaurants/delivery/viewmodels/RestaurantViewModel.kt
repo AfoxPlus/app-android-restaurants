@@ -19,7 +19,7 @@ import javax.inject.Inject
 internal class RestaurantViewModel @Inject constructor(
     private val fetchRestaurant: FetchRestaurantHome,
     private val setToContextRestaurant: SetToContextRestaurant,
-    private val eventWrapper: UIKitEventBusWrapper,
+    private val eventBusWrapper: UIKitEventBusWrapper,
     private val coroutineDispatcher: UIKitCoroutineDispatcher
 ) : ViewModel() {
 
@@ -40,13 +40,13 @@ internal class RestaurantViewModel @Inject constructor(
     fun onClickCardRestaurant(restaurant: Restaurant) {
         viewModelScope.launch(coroutineDispatcher.getMainDispatcher()) {
             setToContextRestaurant(restaurant)
-            eventWrapper.send(OnClickRestaurantHomeEvent.build(restaurant))
+            eventBusWrapper.send(OnClickRestaurantHomeEvent(restaurant = restaurant))
         }
     }
 
     fun onClickDelivery(restaurant: Restaurant) =
         viewModelScope.launch(coroutineDispatcher.getMainDispatcher()) {
             setToContextRestaurant(restaurant)
-            eventWrapper.send(OnClickDeliveryEvent.build(restaurant))
+            eventBusWrapper.send(OnClickDeliveryEvent(restaurant = restaurant))
         }
 }

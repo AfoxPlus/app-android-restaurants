@@ -12,7 +12,8 @@ data class RestaurantResponse(
     @SerializedName("urlImageLogo") val urlImageLogo: String,
     @SerializedName("ownDelivery") val ownDelivery: Boolean,
     @SerializedName("registrationState") var registrationState: RegistrationStateResponse,
-    @SerializedName("itemViewType") var itemViewType: Int
+    @SerializedName("itemViewType") var itemViewType: Int,
+    @SerializedName("paymentMethods") var paymentMethods: List<PaymentMethodResponse>
 )
 
 fun BaseResponse<List<RestaurantResponse>>.toListRestaurant(): List<Restaurant> {
@@ -27,6 +28,7 @@ fun RestaurantResponse.toRestaurant(): Restaurant {
         urlImageLogo = urlImageLogo,
         ownDelivery = ownDelivery,
         registrationState = registrationState.toRegistrationState(),
-        itemViewType = HOME_VIEW_TYPE
+        itemViewType = HOME_VIEW_TYPE,
+        paymentMethods = paymentMethods.toPaymentMethods()
     )
 }

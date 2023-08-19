@@ -11,7 +11,8 @@ data class Restaurant(
     val urlImageLogo: String,
     val ownDelivery: Boolean,
     val registrationState: RegistrationState,
-    var itemViewType: Int
+    var itemViewType: Int,
+    val paymentMethods: List<PaymentMethod>
 ) : Parcelable {
 
     companion object {

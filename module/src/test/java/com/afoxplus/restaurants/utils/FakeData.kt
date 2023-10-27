@@ -1,8 +1,10 @@
 package com.afoxplus.restaurants.utils
 
 import com.afoxplus.network.response.BaseResponse
+import com.afoxplus.restaurants.entities.PaymentMethod
 import com.afoxplus.restaurants.entities.RegistrationState
 import com.afoxplus.restaurants.entities.Restaurant
+import com.afoxplus.restaurants.repositories.sources.network.api.response.PaymentMethodResponse
 import com.afoxplus.restaurants.repositories.sources.network.api.response.RegistrationStateResponse
 import com.afoxplus.restaurants.repositories.sources.network.api.response.RestaurantResponse
 
@@ -22,7 +24,8 @@ fun getRestaurantResponse(): RestaurantResponse {
         urlImageLogo = "https://www.tulogo.com",
         ownDelivery = false,
         registrationState = RegistrationStateResponse(code = "123", state = ""),
-        itemViewType = 0
+        itemViewType = 0,
+        paymentMethods = listOf(PaymentMethodResponse("1", "Yape", true))
     )
 }
 
@@ -34,6 +37,7 @@ fun getRestaurant(): Restaurant {
         urlImageLogo = "https://www.tulogo.com",
         ownDelivery = true,
         RegistrationState(code = "123", state = ""),
-        itemViewType = 0
+        itemViewType = 0,
+        paymentMethods = listOf(PaymentMethod("1", "Yape", true))
     )
 }

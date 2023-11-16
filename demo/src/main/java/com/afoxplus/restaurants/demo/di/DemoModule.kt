@@ -1,6 +1,6 @@
 package com.afoxplus.restaurants.demo.di
 
-import com.afoxplus.module.delivery.flow.StartDemoFlow
+import com.afoxplus.demo_config.delivery.flow.StartDemoFlow
 import com.afoxplus.restaurants.demo.global.RestaurantStartDemoFlow
 import dagger.Binds
 import dagger.Module

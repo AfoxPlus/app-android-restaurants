@@ -1,15 +1,17 @@
 package com.afoxplus.restaurants.delivery.flow
 
-import com.afoxplus.restaurants.delivery.views.fragments.RestaurantHomeFragment
-import com.afoxplus.uikit.fragments.UIKitBaseFragment
+import androidx.compose.runtime.Composable
+import com.afoxplus.restaurants.delivery.views.screens.RestaurantHomeScreen
 import javax.inject.Inject
 
 interface RestaurantFlow {
-    fun getRestaurantHomeFragment(): UIKitBaseFragment
+    @Composable
+    fun RestaurantsComponent()
 }
 
 class RestaurantFlowAction @Inject constructor() : RestaurantFlow {
-    override fun getRestaurantHomeFragment(): UIKitBaseFragment {
-        return RestaurantHomeFragment()
-    }
+
+    @Composable
+    override fun RestaurantsComponent() = RestaurantHomeScreen()
+
 }

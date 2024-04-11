@@ -4,11 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.afoxplus.restaurants.delivery.views.events.OnClickDeliveryEvent
-import com.afoxplus.restaurants.delivery.views.events.OnClickRestaurantHomeEvent
-import com.afoxplus.restaurants.entities.Restaurant
-import com.afoxplus.restaurants.usecases.actions.FetchRestaurantHome
-import com.afoxplus.restaurants.usecases.actions.SetToContextRestaurant
+import com.afoxplus.restaurants.delivery.events.OnClickDeliveryEvent
+import com.afoxplus.restaurants.delivery.events.OnClickRestaurantHomeEvent
+import com.afoxplus.restaurants.delivery.models.RestaurantEventModel
+import com.afoxplus.restaurants.domain.entities.Restaurant
+import com.afoxplus.restaurants.domain.usecases.FetchRestaurantHomeUseCase
+import com.afoxplus.restaurants.domain.usecases.SetToContextRestaurantUseCase
 import com.afoxplus.uikit.bus.UIKitEventBusWrapper
 import com.afoxplus.uikit.di.UIKitCoroutineDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,8 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class RestaurantViewModel @Inject constructor(
-    private val fetchRestaurant: FetchRestaurantHome,
-    private val setToContextRestaurant: SetToContextRestaurant,
+    private val fetchRestaurant: FetchRestaurantHomeUseCase,
+    private val setToContextRestaurant: SetToContextRestaurantUseCase,
     private val eventBusWrapper: UIKitEventBusWrapper,
     private val coroutineDispatcher: UIKitCoroutineDispatcher
 ) : ViewModel() {
@@ -40,13 +41,27 @@ internal class RestaurantViewModel @Inject constructor(
     fun onClickCardRestaurant(restaurant: Restaurant) {
         viewModelScope.launch(coroutineDispatcher.getMainDispatcher()) {
             setToContextRestaurant(restaurant)
-            eventBusWrapper.send(OnClickRestaurantHomeEvent(restaurant = restaurant))
+            eventBusWrapper.send(
+                OnClickRestaurantHomeEvent(
+                    restaurant = RestaurantEventModel(
+                        code = restaurant.code,
+                        name = restaurant.name
+                    )
+                )
+            )
         }
     }
 
     fun onClickDelivery(restaurant: Restaurant) =
         viewModelScope.launch(coroutineDispatcher.getMainDispatcher()) {
             setToContextRestaurant(restaurant)
-            eventBusWrapper.send(OnClickDeliveryEvent(restaurant = restaurant))
+            eventBusWrapper.send(
+                OnClickDeliveryEvent(
+                    restaurant = RestaurantEventModel(
+                        code = restaurant.code,
+                        name = restaurant.name
+                    )
+                )
+            )
         }
 }

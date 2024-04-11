@@ -1,9 +1,9 @@
 package com.afoxplus.restaurants.di
 
-import com.afoxplus.restaurants.repositories.sources.local.RestaurantLocalDataSource
-import com.afoxplus.restaurants.repositories.sources.local.cache.RestaurantCacheDataSource
-import com.afoxplus.restaurants.repositories.sources.network.RestaurantNetworkDataSource
-import com.afoxplus.restaurants.repositories.sources.network.service.RestaurantNetworkService
+import com.afoxplus.restaurants.services.sources.local.RestaurantLocalDataSource
+import com.afoxplus.restaurants.services.sources.local.cache.RestaurantCacheDataSource
+import com.afoxplus.restaurants.services.sources.network.RestaurantNetworkDataSource
+import com.afoxplus.restaurants.services.sources.network.service.RestaurantNetworkService
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -1,9 +1,9 @@
 package com.afoxplus.restaurants.delivery.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.afoxplus.restaurants.entities.Restaurant
-import com.afoxplus.restaurants.usecases.actions.FetchRestaurantHome
-import com.afoxplus.restaurants.usecases.actions.SetToContextRestaurant
+import com.afoxplus.restaurants.domain.entities.Restaurant
+import com.afoxplus.restaurants.domain.usecases.FetchRestaurantHomeUseCase
+import com.afoxplus.restaurants.domain.usecases.SetToContextRestaurantUseCase
 import com.afoxplus.restaurants.utils.TestCoroutineRule
 import com.afoxplus.restaurants.utils.UIKitCoroutinesDispatcherTest
 import com.afoxplus.restaurants.utils.getOrAwaitValue
@@ -30,9 +30,9 @@ class RestaurantViewModelTest {
     @get:Rule
     val ruleCoroutineRule = TestCoroutineRule()
 
-    private val mockFetchRestaurant: FetchRestaurantHome = mock()
+    private val mockFetchRestaurant: FetchRestaurantHomeUseCase = mock()
 
-    private val mockSetToContextRestaurant: SetToContextRestaurant = mock()
+    private val mockSetToContextRestaurant: SetToContextRestaurantUseCase = mock()
 
     private val uikitEventBusWrapper: UIKitEventBusWrapper = mock()
 

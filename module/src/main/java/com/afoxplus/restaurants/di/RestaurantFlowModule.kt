@@ -9,7 +9,7 @@ import dagger.hilt.android.components.ActivityComponent
 
 @Module
 @InstallIn(ActivityComponent::class)
-abstract class RestaurantFlowModule {
+fun interface RestaurantFlowModule {
     @Binds
-    abstract fun bindsRestaurantFlow(restaurantFlowAction: RestaurantFlowAction): RestaurantFlow
+    fun bindsRestaurantFlow(restaurantFlowAction: RestaurantFlowAction): RestaurantFlow
 }

@@ -36,7 +36,12 @@ internal fun getRestaurant(): Restaurant {
         category = "",
         summary = "This is restaurant",
         urlImageBanner = "",
-        information = listOf(),
+        information = listOf(
+            Restaurant.Information(
+                "icon_pin_location_outline",
+                "Avenida Arenales 1241"
+            )
+        ),
         urlImageLogo = "https://www.tulogo.com",
         ownDelivery = true,
         registrationState = RegistrationState(code = "123", state = ""),

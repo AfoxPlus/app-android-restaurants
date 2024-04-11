@@ -1,18 +1,16 @@
 package com.afoxplus.restaurants.delivery.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.afoxplus.restaurants.delivery.events.OnClickDeliveryEvent
-import com.afoxplus.restaurants.delivery.events.OnClickRestaurantHomeEvent
-import com.afoxplus.restaurants.delivery.models.RestaurantEventModel
+import com.afoxplus.restaurants.delivery.models.UIState
 import com.afoxplus.restaurants.domain.entities.Restaurant
 import com.afoxplus.restaurants.domain.usecases.FetchRestaurantHomeUseCase
 import com.afoxplus.restaurants.domain.usecases.SetToContextRestaurantUseCase
-import com.afoxplus.uikit.bus.UIKitEventBusWrapper
 import com.afoxplus.uikit.di.UIKitCoroutineDispatcher
+import com.afoxplus.uikit.exceptions.UIException
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,48 +18,27 @@ import javax.inject.Inject
 internal class RestaurantViewModel @Inject constructor(
     private val fetchRestaurant: FetchRestaurantHomeUseCase,
     private val setToContextRestaurant: SetToContextRestaurantUseCase,
-    private val eventBusWrapper: UIKitEventBusWrapper,
     private val coroutineDispatcher: UIKitCoroutineDispatcher
 ) : ViewModel() {
 
-    private val mRestaurantsHome: MutableLiveData<List<Restaurant>> by lazy { MutableLiveData<List<Restaurant>>() }
-    val restaurantsHome: LiveData<List<Restaurant>> get() = mRestaurantsHome
+    private val uiStateRestaurants: MutableStateFlow<UIState<List<Restaurant>>> by lazy {
+        MutableStateFlow(UIState.OnLoading())
+    }
+    val uiStateRestaurant: StateFlow<UIState<List<Restaurant>>> get() = uiStateRestaurants
 
     fun fetchRestaurantHome() {
         viewModelScope.launch(coroutineDispatcher.getIODispatcher()) {
             try {
-                val result = fetchRestaurant()
-                mRestaurantsHome.postValue(result)
+                uiStateRestaurants.value = UIState.OnSuccess(fetchRestaurant())
             } catch (ex: Exception) {
-                mRestaurantsHome.postValue(emptyList())
+                uiStateRestaurants.value = UIState.OnError(UIException(ex.message))
             }
         }
     }
 
-    fun onClickCardRestaurant(restaurant: Restaurant) {
+    fun updateContextRestaurant(restaurant: Restaurant) {
         viewModelScope.launch(coroutineDispatcher.getMainDispatcher()) {
             setToContextRestaurant(restaurant)
-            eventBusWrapper.send(
-                OnClickRestaurantHomeEvent(
-                    restaurant = RestaurantEventModel(
-                        code = restaurant.code,
-                        name = restaurant.name
-                    )
-                )
-            )
         }
     }
-
-    fun onClickDelivery(restaurant: Restaurant) =
-        viewModelScope.launch(coroutineDispatcher.getMainDispatcher()) {
-            setToContextRestaurant(restaurant)
-            eventBusWrapper.send(
-                OnClickDeliveryEvent(
-                    restaurant = RestaurantEventModel(
-                        code = restaurant.code,
-                        name = restaurant.name
-                    )
-                )
-            )
-        }
 }

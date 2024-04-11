@@ -1,7 +1,7 @@
 package com.afoxplus.restaurants.delivery.views.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,26 +11,31 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.afoxplus.restaurants.R
-import com.afoxplus.restaurants.delivery.models.RestaurantUIModel
+import com.afoxplus.restaurants.domain.entities.Restaurant
+import com.afoxplus.uikit.designsystem.atoms.UIKitIcon
 import com.afoxplus.uikit.designsystem.atoms.UIKitText
+import com.afoxplus.uikit.designsystem.extensions.getUIKitIcon
 import com.afoxplus.uikit.designsystem.foundations.UIKitColorTheme
 import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
 import com.afoxplus.uikit.designsystem.foundations.UIKitTypographyTheme
 
+internal fun interface OnClickCardEstablishment {
+    operator fun invoke(restaurant: Restaurant)
+}
+
 @Composable
-internal fun UIKitCardEstablishment(restaurant: RestaurantUIModel) {
+internal fun UIKitCardEstablishment(
+    restaurant: Restaurant,
+    onClickCardEstablishment: OnClickCardEstablishment
+) {
     Card(
+        modifier = Modifier.clickable { onClickCardEstablishment(restaurant) },
         elevation = CardDefaults.cardElevation(
             defaultElevation = UIKitTheme.spacing.spacing02
         ),
@@ -42,7 +47,7 @@ internal fun UIKitCardEstablishment(restaurant: RestaurantUIModel) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(150.dp),
-                model = restaurant.urlBanner,
+                model = restaurant.urlImageBanner,
                 contentDescription = restaurant.name,
                 contentScale = ContentScale.FillBounds,
             )
@@ -62,7 +67,7 @@ internal fun UIKitCardEstablishment(restaurant: RestaurantUIModel) {
                             clip = true
                         ),
                     contentScale = ContentScale.FillBounds,
-                    model = restaurant.urlLogo,
+                    model = restaurant.urlImageLogo,
                     contentDescription = restaurant.name
                 )
                 EstablishmentInformation(restaurant)
@@ -72,7 +77,7 @@ internal fun UIKitCardEstablishment(restaurant: RestaurantUIModel) {
 }
 
 @Composable
-internal fun EstablishmentInformation(restaurant: RestaurantUIModel) {
+internal fun EstablishmentInformation(restaurant: Restaurant) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(UIKitTheme.spacing.spacing04)
@@ -92,24 +97,25 @@ internal fun EstablishmentInformation(restaurant: RestaurantUIModel) {
             style = UIKitTypographyTheme.paragraph02,
             color = UIKitColorTheme.gray500
         )
-        restaurant.data.forEach { item ->
+        restaurant.information.forEach { item ->
             IconWithDescriptionHorizontal(
-                painterResource(id = item.key),
-                description = item.value
+                iconToken = item.code,
+                description = item.name
             )
         }
     }
 }
 
 @Composable
-internal fun IconWithDescriptionHorizontal(painter: Painter, description: String) {
+internal fun IconWithDescriptionHorizontal(iconToken: String, description: String) {
     Row(horizontalArrangement = Arrangement.spacedBy(UIKitTheme.spacing.spacing04)) {
-        Icon(
-            modifier = Modifier.size(UIKitTheme.spacing.spacing14),
-            painter = painter,
-            contentDescription = description,
-            tint = UIKitColorTheme.gray700
-        )
+        getUIKitIcon(iconToken)?.let {
+            UIKitIcon(
+                modifier = Modifier.size(UIKitTheme.spacing.spacing14),
+                icon = it,
+                contentDescription = description
+            )
+        }
         UIKitText(
             modifier = Modifier.fillMaxWidth(),
             text = description,
@@ -117,31 +123,4 @@ internal fun IconWithDescriptionHorizontal(painter: Painter, description: String
             color = UIKitColorTheme.gray700
         )
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ShowComponent() = UIKitTheme {
-    val restaurant =
-        RestaurantUIModel(
-            urlBanner = "https://t3.ftcdn.net/jpg/03/35/51/06/360_F_335510693_HY7mLg3ARdLccKoXk3m66NLDpJRJh51p.jpg",
-            urlLogo = "",
-            name = "Kitchen",
-            category = "Cafe & Resto",
-            summary = "Desayunos, almuerzos, cenas, platos a la carta y bebidas",
-            data = mapOf(
-                R.drawable.ic_restaurant_location to "Avenida arenales 1241",
-                R.drawable.ic_restaurant_whatsapp to "966885488"
-            )
-        )
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(UIKitTheme.spacing.spacing16),
-        verticalArrangement = Arrangement.spacedBy(UIKitTheme.spacing.spacing08)
-    ) {
-        UIKitCardEstablishment(restaurant)
-        UIKitCardEstablishment(restaurant)
-    }
-
 }

@@ -31,7 +31,7 @@ internal fun RestaurantResponse.toRestaurant(): Restaurant {
         category = "Caffe & Resto",
         summary = description,
         urlImageLogo = urlImageLogo,
-        urlImageBanner = "",
+        urlImageBanner = "https://content.wepik.com/statics/21940772/preview-page0.jpg",
         ownDelivery = ownDelivery,
         registrationState = registrationState.toRegistrationState(),
         paymentMethods = paymentMethods.toPaymentMethods(),

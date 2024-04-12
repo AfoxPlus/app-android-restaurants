@@ -1,10 +1,9 @@
 package com.afoxplus.restaurants.delivery.flow
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.afoxplus.restaurants.entities.Restaurant
+import com.afoxplus.restaurants.delivery.models.RestaurantEventModel
 import com.afoxplus.restaurants.utils.TestCoroutineRule
 import com.afoxplus.restaurants.utils.getOrAwaitValue
-import com.afoxplus.restaurants.utils.getRestaurant
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -26,7 +25,7 @@ class RestaurantBridgeActionTest {
     @Test
     fun `Given a restaurant When execute saveRestaurant Then validate that save it's ok`() {
         ruleTestCoroutineRule.runBlockingTest {
-            val restaurantData: Restaurant = getRestaurant()
+            val restaurantData = RestaurantEventModel(code = "AS1D23", name = "Restaurant")
 
             sutRestaurantBridgeAction.saveRestaurant(restaurant = restaurantData)
             val resultRestaurant = sutRestaurantBridgeAction.restaurant.getOrAwaitValue()

@@ -10,10 +10,10 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal abstract class RestaurantBridgeModule {
+internal fun interface RestaurantBridgeModule {
 
     @Singleton
     @Binds
-    abstract fun bindsRestaurantBridgeAction(restaurantBridgeAction: RestaurantBridgeAction): RestaurantBridge
+    fun bindsRestaurantBridgeAction(restaurantBridgeAction: RestaurantBridgeAction): RestaurantBridge
 
 }

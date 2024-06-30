@@ -23,21 +23,19 @@ internal fun RegistrationStateResponse.toRegistrationState(): RegistrationState 
     )
 }
 
-//TODO: Complete with backend
 internal fun RestaurantResponse.toRestaurant(): Restaurant {
     return Restaurant(
         code = code,
         name = name,
-        category = "Caffe & Resto",
+        category = category.orEmpty(),
         summary = description,
         urlImageLogo = urlImageLogo,
-        urlImageBanner = "https://content.wepik.com/statics/21940772/preview-page0.jpg",
+        urlImageBanner = urlImageBanner.orEmpty(),
         ownDelivery = ownDelivery,
         registrationState = registrationState.toRegistrationState(),
         paymentMethods = paymentMethods.toPaymentMethods(),
-        information = listOf(
-            Restaurant.Information("CEL", "+51 966998544"),
-            Restaurant.Information("ADDRESS", "Avenida arenales 1241")
-        )
+        information = informationResponse?.map { item ->
+            Restaurant.Information(item.code, item.name)
+        }
     )
 }

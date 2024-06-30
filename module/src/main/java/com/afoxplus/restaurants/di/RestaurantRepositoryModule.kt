@@ -1,6 +1,6 @@
 package com.afoxplus.restaurants.di
 
-import com.afoxplus.restaurants.services.RestaurantRepositorySource
+import com.afoxplus.restaurants.services.repositories.RestaurantRepositorySource
 import com.afoxplus.restaurants.domain.repositories.RestaurantRepository
 import dagger.Binds
 import dagger.Module

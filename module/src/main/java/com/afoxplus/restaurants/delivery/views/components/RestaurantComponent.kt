@@ -4,7 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -36,9 +35,7 @@ internal fun UIKitCardEstablishment(
 ) {
     Card(
         modifier = Modifier.clickable { onClickCardEstablishment(restaurant) },
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = UIKitTheme.spacing.spacing02
-        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
         shape = UIKitTheme.shapes.smallMedium,
         colors = CardDefaults.cardColors(containerColor = UIKitColorTheme.light01)
     ) {
@@ -97,7 +94,7 @@ internal fun EstablishmentInformation(restaurant: Restaurant) {
             style = UIKitTypographyTheme.paragraph02,
             color = UIKitColorTheme.gray500
         )
-        restaurant.information.forEach { item ->
+        restaurant.information?.forEach { item ->
             IconWithDescriptionHorizontal(
                 iconToken = item.code,
                 description = item.name

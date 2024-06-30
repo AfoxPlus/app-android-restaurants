@@ -14,7 +14,7 @@ internal data class Restaurant(
     val ownDelivery: Boolean,
     val registrationState: RegistrationState,
     val paymentMethods: List<PaymentMethod>,
-    val information: List<Information>
+    val information: List<Information>?
 ) : Parcelable {
 
     companion object {

@@ -1,9 +1,9 @@
-package com.afoxplus.restaurants.services
+package com.afoxplus.restaurants.services.repositories
 
 import com.afoxplus.restaurants.domain.entities.Restaurant
-import com.afoxplus.restaurants.services.sources.local.RestaurantLocalDataSource
-import com.afoxplus.restaurants.services.sources.network.RestaurantNetworkDataSource
 import com.afoxplus.restaurants.domain.repositories.RestaurantRepository
+import com.afoxplus.restaurants.services.sources.local.cache.RestaurantLocalDataSource
+import com.afoxplus.restaurants.services.sources.network.RestaurantNetworkDataSource
 import javax.inject.Inject
 
 internal class RestaurantRepositorySource @Inject constructor(

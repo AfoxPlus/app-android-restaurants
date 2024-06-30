@@ -3,6 +3,8 @@ package com.afoxplus.restaurants.repositories
 import com.afoxplus.restaurants.services.repositories.RestaurantRepositorySource
 import com.afoxplus.restaurants.utils.TestCoroutineRule
 import com.afoxplus.restaurants.domain.entities.Restaurant
+import com.afoxplus.restaurants.services.sources.local.cache.RestaurantLocalDataSource
+import com.afoxplus.restaurants.services.sources.network.RestaurantNetworkDataSource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull

@@ -1,8 +1,8 @@
 package com.afoxplus.restaurants.services.sources
 
 import com.afoxplus.restaurants.cross.mappers.toListRestaurant
+import com.afoxplus.restaurants.services.sources.network.RestaurantNetworkDataSource
 import com.afoxplus.restaurants.services.sources.network.api.RestaurantApiNetwork
-import com.afoxplus.restaurants.services.sources.network.service.RestaurantNetworkService
 import com.afoxplus.restaurants.utils.TestCoroutineRule
 import com.afoxplus.restaurants.utils.getBaseResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -26,11 +26,11 @@ class RestaurantNetworkServiceTest {
 
     private val mockRestaurantApi: RestaurantApiNetwork = mock()
 
-    private lateinit var sutService: RestaurantNetworkService
+    private lateinit var sutService: RestaurantNetworkDataSource
 
     @Before
     fun setup() {
-        sutService = RestaurantNetworkService(mockRestaurantApi)
+        sutService = RestaurantNetworkDataSource(mockRestaurantApi)
     }
 
     @Test

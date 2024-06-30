@@ -1,12 +1,10 @@
 package com.afoxplus.restaurants.demo.delivery.views.activities
 
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
-import com.afoxplus.restaurants.delivery.flow.RestaurantBridge
 import com.afoxplus.restaurants.delivery.flow.RestaurantFlow
 import com.afoxplus.uikit.activities.UIKitBaseActivity
 import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
@@ -17,9 +15,6 @@ import javax.inject.Inject
 class MainActivity : UIKitBaseActivity() {
     @Inject
     lateinit var restaurantFlow: RestaurantFlow
-
-    @Inject
-    lateinit var restaurantBridge: RestaurantBridge
 
 
     override fun setMainView() {
@@ -44,8 +39,6 @@ class MainActivity : UIKitBaseActivity() {
     }
 
     override fun observerViewModel() {
-        restaurantBridge.fetchRestaurant().observe(this) { restaurant ->
-            Log.d("RESTAURANT", restaurant.toString())
-        }
+
     }
 }

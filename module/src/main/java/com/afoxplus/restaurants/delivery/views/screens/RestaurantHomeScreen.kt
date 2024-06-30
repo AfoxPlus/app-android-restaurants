@@ -3,6 +3,7 @@ package com.afoxplus.restaurants.delivery.views.screens
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -18,6 +19,7 @@ import com.afoxplus.restaurants.delivery.views.components.OnClickCardEstablishme
 import com.afoxplus.restaurants.delivery.views.components.UIKitCardEstablishment
 import com.afoxplus.restaurants.domain.entities.Restaurant
 import com.afoxplus.uikit.designsystem.atoms.UIKitText
+import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
 import com.afoxplus.uikit.designsystem.molecules.UIKitLoading
 import com.afoxplus.uikit.exceptions.UIException
 
@@ -48,7 +50,7 @@ internal fun RestaurantHomeData(
     data: List<Restaurant>,
     onClickCardEstablishment: OnClickCardEstablishment
 ) {
-    Column(modifier = modifier) {
+    Column(modifier = modifier.padding(horizontal = UIKitTheme.spacing.spacing16)) {
         data.forEach { restaurant ->
             UIKitCardEstablishment(
                 restaurant = restaurant,

@@ -1,23 +1,20 @@
 package com.afoxplus.restaurants.demo.delivery.views.activities
 
 import android.widget.Toast
+import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.viewpager2.widget.ViewPager2
 import com.afoxplus.restaurants.delivery.flow.RestaurantBridge
 import com.afoxplus.restaurants.delivery.flow.RestaurantFlow
-import com.afoxplus.restaurants.demo.databinding.ActivityMainBinding
+import com.afoxplus.restaurants.delivery.views.screens.EstablishmentScreen
 import com.afoxplus.restaurants.demo.delivery.viewmodels.MainViewModel
 import com.afoxplus.uikit.activities.UIKitBaseActivity
-import com.afoxplus.uikit.adapters.UIKitViewPagerAdapter
-import com.google.android.material.snackbar.Snackbar
+import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : UIKitBaseActivity() {
-
-    private lateinit var binding: ActivityMainBinding
 
     private val viewModel: MainViewModel by viewModels()
 
@@ -27,27 +24,19 @@ class MainActivity : UIKitBaseActivity() {
     @Inject
     lateinit var restaurantBridge: RestaurantBridge
 
-    private lateinit var viewPagerAdapter: UIKitViewPagerAdapter
-
     override fun setMainView() {
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContent {
+            UIKitTheme {
+                EstablishmentScreen()
+            }
+        }
     }
 
     override fun setUpView() {
-        viewPagerAdapter = UIKitViewPagerAdapter(
-            supportFragmentManager,
-            lifecycle,
-            listOf(restaurantFlow.getRestaurantHomeFragment())
-        )
-        binding.viewPagerMarket.adapter = viewPagerAdapter
-        binding.viewPagerMarket.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
     }
 
     override fun observerViewModel() {
-        restaurantBridge.fetchRestaurant().observe(this) { restaurant ->
-            Snackbar.make(binding.root, restaurant.name, Snackbar.LENGTH_LONG).show()
-        }
 
         lifecycleScope.launchWhenCreated {
             viewModel.eventBusListener.collect { event ->

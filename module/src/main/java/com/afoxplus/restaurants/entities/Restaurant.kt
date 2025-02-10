@@ -7,9 +7,16 @@ import kotlinx.parcelize.Parcelize
 data class Restaurant(
     val code: String,
     val name: String,
+    val primaryType: String,
     val description: String,
     val urlImageLogo: String,
+    val urlImageBanner: String,
     val ownDelivery: Boolean,
+    val isOpen: Boolean,
+    val rating: Float,
+    val address: String,
+    val hasSubscription: Boolean,
+    val phone: String,
     val registrationState: RegistrationState,
     var itemViewType: Int,
     val paymentMethods: List<PaymentMethod>

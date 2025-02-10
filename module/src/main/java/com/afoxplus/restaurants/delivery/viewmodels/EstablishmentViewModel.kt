@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class EstablishmentViewModel @Inject constructor(
+internal class EstablishmentViewModel @Inject constructor(
     private val fetchRestaurant: FetchRestaurantHome,
     private val setToContextRestaurant: SetToContextRestaurant,
     private val eventBusWrapper: UIKitEventBusWrapper,

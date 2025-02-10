@@ -23,9 +23,14 @@ import com.afoxplus.uikit.designsystem.organisms.UIKitCardEstablishment
 import com.afoxplus.uikit.objects.vendor.Establishment
 
 @Composable
-fun EstablishmentScreen(
+fun EstablishmentScreen(modifier: Modifier = Modifier) {
+    EstablishmentScreen(modifier, viewModel = hiltViewModel())
+}
+
+@Composable
+private fun EstablishmentScreen(
     modifier: Modifier = Modifier,
-    viewModel: EstablishmentViewModel = hiltViewModel()
+    viewModel: EstablishmentViewModel
 ) {
     val establishmentsState by viewModel.establishmentState.collectAsState()
     Box(modifier = modifier.fillMaxSize()) {
@@ -42,17 +47,17 @@ fun EstablishmentScreen(
 }
 
 @Composable
-fun HandleOnError(modifier: Modifier = Modifier, message: String) {
+private fun HandleOnError(modifier: Modifier = Modifier, message: String) {
     UIKitText(modifier = modifier, text = message, style = UIKitTypographyTheme.header02SemiBold)
 }
 
 @Composable
-fun HandleOnLoading(modifier: Modifier = Modifier) {
+private fun HandleOnLoading(modifier: Modifier = Modifier) {
     UIKitLoading(modifier)
 }
 
 @Composable
-fun HandleOnSuccess(
+private fun HandleOnSuccess(
     modifier: Modifier = Modifier,
     establishments: List<Restaurant>,
     onClick: (Restaurant) -> Unit

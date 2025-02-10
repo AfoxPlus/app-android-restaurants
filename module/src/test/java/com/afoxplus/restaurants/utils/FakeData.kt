@@ -20,6 +20,13 @@ fun getRestaurantResponse(): RestaurantResponse {
     return RestaurantResponse(
         code = "321",
         name = "Chilis",
+        primaryType = "Restaurant",
+        urlImageBanner = "",
+        isOpen = false,
+        rating = 46.6f,
+        address = "",
+        hasSubscription = false,
+        phone = "",
         description = "This is restaurant",
         urlImageLogo = "https://www.tulogo.com",
         ownDelivery = false,
@@ -33,10 +40,17 @@ fun getRestaurant(): Restaurant {
     return Restaurant(
         code = "321",
         name = "Chilis",
+        primaryType = "Restaurant",
+        urlImageBanner = "",
+        isOpen = false,
+        rating = 46.6f,
+        address = "",
+        hasSubscription = false,
+        phone = "",
         description = "This is restaurant",
         urlImageLogo = "https://www.tulogo.com",
         ownDelivery = true,
-        RegistrationState(code = "123", state = ""),
+        registrationState = RegistrationState(code = "123", state = ""),
         itemViewType = 0,
         paymentMethods = listOf(PaymentMethod("1", "Yape", true))
     )

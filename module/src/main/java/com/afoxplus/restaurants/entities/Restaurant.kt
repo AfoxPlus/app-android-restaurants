@@ -1,8 +1,10 @@
 package com.afoxplus.restaurants.entities
 
 import android.os.Parcelable
+import androidx.compose.runtime.Immutable
 import kotlinx.parcelize.Parcelize
 
+@Immutable
 @Parcelize
 data class Restaurant(
     val code: String,

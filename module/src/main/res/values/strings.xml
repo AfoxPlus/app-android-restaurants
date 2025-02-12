@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="order_button_delivery">Delivery</string>
+    <string name="banner_title">Busca tu restaurante favorito</string>
+    <string name="banner_description">Todos los restaurantes cercanos encuéntralos aquí</string>
+    <string name="banner_button_title">Probar</string>
+    <string name="banner_url_image">https://raw.githubusercontent.com/AfoxPlus/app-resources/refs/heads/main/app/home/home_banner_burgers.png</string>
+    <string name="banner_deeplink">https://yalistoapp.com/places/map</string>
 </resources>

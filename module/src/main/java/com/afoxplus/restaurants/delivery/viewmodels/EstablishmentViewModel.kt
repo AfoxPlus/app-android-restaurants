@@ -6,6 +6,7 @@ import com.afoxplus.restaurants.delivery.views.events.OnClickRestaurantHomeEvent
 import com.afoxplus.restaurants.entities.Restaurant
 import com.afoxplus.restaurants.usecases.actions.FetchRestaurantHome
 import com.afoxplus.restaurants.usecases.actions.SetToContextRestaurant
+import com.afoxplus.uikit.bus.OnClickDeeplinkEvent
 import com.afoxplus.uikit.bus.UIKitEventBusWrapper
 import com.afoxplus.uikit.common.UIState
 import com.afoxplus.uikit.di.UIKitCoroutineDispatcher
@@ -48,6 +49,12 @@ internal class EstablishmentViewModel @Inject constructor(
         viewModelScope.launch(coroutineDispatcher.getMainDispatcher()) {
             setToContextRestaurant(restaurant)
             eventBusWrapper.send(OnClickRestaurantHomeEvent(restaurant = restaurant))
+        }
+    }
+
+    fun sendDeeplinkEvent(deeplink: String) {
+        viewModelScope.launch(coroutineDispatcher.getMainDispatcher()) {
+            eventBusWrapper.send(OnClickDeeplinkEvent(deeplink = deeplink))
         }
     }
 }

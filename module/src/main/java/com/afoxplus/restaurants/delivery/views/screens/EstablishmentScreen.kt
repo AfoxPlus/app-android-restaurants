@@ -4,7 +4,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -33,27 +36,42 @@ private fun EstablishmentScreen(
     viewModel: EstablishmentViewModel
 ) {
     val establishmentsState by viewModel.establishmentState.collectAsState()
-    Box(modifier = modifier.fillMaxSize()) {
-        when (establishmentsState) {
-            is UIState.OnError -> HandleOnError(message = (establishmentsState as UIState.OnError<List<Restaurant>>).uiException.message.orEmpty())
-            is UIState.OnLoading -> HandleOnLoading(modifier = Modifier.align(Alignment.Center))
-            is UIState.OnSuccess -> HandleOnSuccess(
-                establishments = (establishmentsState as UIState.OnSuccess<List<Restaurant>>).data,
-                onClick = {
-                    viewModel.onClickCardRestaurant(it)
-                })
-        }
+    when (establishmentsState) {
+        is UIState.OnError -> HandleOnError(
+            modifier = modifier,
+            message = (establishmentsState as UIState.OnError<List<Restaurant>>).uiException.message.orEmpty()
+        )
+
+        is UIState.OnLoading -> HandleOnLoading(modifier = modifier)
+        is UIState.OnSuccess -> HandleOnSuccess(
+            modifier = modifier,
+            establishments = (establishmentsState as UIState.OnSuccess<List<Restaurant>>).data,
+            onClick = {
+                viewModel.onClickCardRestaurant(it)
+            })
     }
+
 }
 
 @Composable
 private fun HandleOnError(modifier: Modifier = Modifier, message: String) {
-    UIKitText(modifier = modifier, text = message, style = UIKitTypographyTheme.header02SemiBold)
+    Box(modifier = modifier.fillMaxSize()) {
+        UIKitText(
+            modifier = Modifier.padding(UIKitTheme.spacing.spacing16),
+            text = message,
+            style = UIKitTypographyTheme.header02SemiBold
+        )
+    }
 }
 
 @Composable
 private fun HandleOnLoading(modifier: Modifier = Modifier) {
-    UIKitLoading(modifier)
+    Box(modifier = modifier.fillMaxSize()) {
+        UIKitLoading(
+            modifier = Modifier.align(Alignment.Center),
+            circleSize = UIKitTheme.spacing.spacing12
+        )
+    }
 }
 
 @Composable
@@ -62,16 +80,18 @@ private fun HandleOnSuccess(
     establishments: List<Restaurant>,
     onClick: (Restaurant) -> Unit
 ) {
+    val listState = rememberLazyListState()
+
     LazyColumn(
         modifier = modifier.fillMaxSize(),
         contentPadding = PaddingValues(
             horizontal = UIKitTheme.spacing.spacing16,
             vertical = UIKitTheme.spacing.spacing12
         ),
-        verticalArrangement = Arrangement.spacedBy(UIKitTheme.spacing.spacing12)
+        verticalArrangement = Arrangement.spacedBy(UIKitTheme.spacing.spacing12),
+        state = listState
     ) {
-        items(count = establishments.size, key = { index -> establishments[index].code }) { index ->
-            val establishment = establishments[index]
+        itemsIndexed(items = establishments, key = { _, item -> item.code }) { _, establishment ->
             UIKitCardEstablishment(
                 establishment = Establishment(
                     imageLandscape = establishment.urlImageBanner,
@@ -88,7 +108,6 @@ private fun HandleOnSuccess(
             ) {
                 onClick(establishment)
             }
-
         }
     }
 }

@@ -90,11 +90,10 @@ private fun HandleOnSuccess(
     onClickBanner: () -> Unit
 ) {
     val listState = rememberLazyListState()
-
     LazyColumn(
         modifier = modifier.fillMaxSize(),
         contentPadding = PaddingValues(
-            vertical = UIKitTheme.spacing.spacing12
+            bottom = UIKitTheme.spacing.spacing12
         ),
         verticalArrangement = Arrangement.spacedBy(UIKitTheme.spacing.spacing12),
         state = listState
@@ -118,6 +117,7 @@ private fun HandleOnSuccess(
             UIKitCardEstablishment(
                 modifier = Modifier.padding(horizontal = UIKitTheme.spacing.spacing16),
                 establishment = Establishment(
+                    primaryType = establishment.primaryType,
                     imageLandscape = establishment.urlImageBanner,
                     imagePortrait = establishment.urlImageLogo,
                     name = establishment.name,
